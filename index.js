@@ -127,7 +127,7 @@ bot.start( async (ctx) => {
 
 scene.action ('registered', async (ctx) => {
     
-    ctx.telegram.getChatMember('@gygvvfgghvv', ctx.chat.id)
+    ctx.telegram.getChatMember('@dnevnikreatora', ctx.chat.id)
     .then (async s => {
         if (s.status === 'member' || s.status === 'creator' ) {
             await ctx.replyWithHTML('<a href="https://www.youtube.com/watch?v=Jb-xbhtJCUs&ab_channel=ostashow">Крутой ролик по Reels</a>');
@@ -145,7 +145,7 @@ scene.action ('registered', async (ctx) => {
 })
 
 scene.action ('notRegistered', async (ctx) => {
-    ctx.telegram.getChatMember('@gygvvfgghvv', ctx.chat.id)
+    ctx.telegram.getChatMember('@dnevnikreatora', ctx.chat.id)
     .then (async s => {
         if (s.status === 'member' || s.status === 'creator' ) {
             await ctx.replyWithHTML('<a href="https://www.youtube.com/watch?v=Jb-xbhtJCUs&ab_channel=ostashow">Крутой ролик по Reels</a>');
