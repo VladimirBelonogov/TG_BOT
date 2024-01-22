@@ -4,7 +4,6 @@ import { writeFileSync, mkdirSync, existsSync} from 'node:fs';
 import fetch from 'node-fetch';
 import  sqlite3  from "sqlite3";
 import 'dotenv/config';
-import { error } from "node:console";
 
 const bot = new Telegraf(process.env.TOKEH);
 
@@ -57,10 +56,8 @@ function getAllUsers(callback) {
     });
 }
 
-// Пример использования функции
 getAllUsers((err, users) => {
     if (err) {
-        // Обрабатываем ошибку
     } else {
         console.log('All users:', users);
     }
@@ -110,7 +107,6 @@ function welcome (user) {
     Забирай урок ниже 👇`
 }
 
-const step1 = new Composer();
 const scene = new Scenes.BaseScene('welcome')
 
 step1.on(message('text'),(ctx) => {
@@ -128,28 +124,7 @@ scene.enter( async (ctx) => {
     ));
 })
 
-const alphabet = new Scenes.WizardScene('ABC', (ctx) => {
-    let flag = false;
-    let date = new Date();
-
-    function checkDate () {
-        let [month,day,hours,minutes] = [date.getMonth(),date.getDate(),date.getHours(),date.getMinutes()]
-
-        if (1){ 
-            console.log(1);
-            
-        }
-    }
-    
-    if (!flag) {
-        
-    } else {
-        ctx.wizard.next()
-    }
-    
-},step1)
-
-const stage = new Scenes.Stage([scene,alphabet])
+const stage = new Scenes.Stage([scene])
 
 bot.use(stage.middleware())
 
@@ -164,7 +139,6 @@ scene.action ('registered', async (ctx) => {
         if (s.status === 'member' || s.status === 'creator' ) {
             await ctx.replyWithHTML('<a href="https://www.youtube.com/watch?v=Jb-xbhtJCUs&ab_channel=ostashow">Крутой ролик по Reels</a>');
             updateUser(ctx.chat.id, true, '')
-            await ctx.scene.enter('ABC');
         } else {
             await ctx.replyWithHTML('Кажется, тебя нет среди подписчиков моего <a href="https://t.me/dnevnikreatora">Телеграм канала</a>')
             await ctx.reply(`Уже подписался?`, Markup.inlineKeyboard(
@@ -182,7 +156,6 @@ scene.action ('notRegistered', async (ctx) => {
     .then (async s => {
         if (s.status === 'member' || s.status === 'creator' ) {
             await ctx.replyWithHTML('<a href="https://www.youtube.com/watch?v=Jb-xbhtJCUs&ab_channel=ostashow">Крутой ролик по Reels</a>');
-            await ctx.scene.enter('ABC');
         } else {
             await ctx.replyWithHTML('Кажется, тебя нет среди подписчиков моего <a href="https://t.me/dnevnikreatora">Телеграм канала</a>')
             await ctx.reply(`Уже подписался?`, Markup.inlineKeyboard(
